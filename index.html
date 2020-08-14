@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABACUS</title>
+    <script src="https://rawcdn.githack.com/antimatter15/ocrad.js/41daf0d2c2d0fc46db0633a6c6516af779b9f0bc/ocrad.js"></script>
+    <script src="index.js"></script>
+</head>
+<style>
+    *:focus {
+        outline: none;
+    }
+
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bolder;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #video-stream {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        display: none;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1em;
+        height: 4em;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        z-index: 99999;
+    }
+
+    .translated, .translated-arabic {
+        color: black;
+        font-size: 1.25em;
+    }
+
+</style>
+<body>
+    <video id="video-stream" autoplay muted playsInline></video>
+    <canvas id="myCanvas"></canvas>
+    <div class="footer">
+        <span class="translated">Looking for numerals...</span>
+        <span class="translated-arabic"></span>
+    </div>
+</body>
+</html>
