@@ -7,7 +7,8 @@ window.onload = () => {
     const hint = {
         audio: false,
         video: {
-
+            width: { ideal: 4096 },
+            height: { ideal: 2160 },
             facingMode: 'environment',
         },
     };
@@ -36,6 +37,11 @@ window.onload = () => {
 
         var string = OCRAD(canvas);
         string = string.replace(/[^A-Za-z]/g, "")
+
+        if (string == 'L' || string == 'l') {
+            // ugly hack for common false positive
+            return;
+        }
 
         if (string == '') {
             interval = setInterval(() => {
