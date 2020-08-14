@@ -7,8 +7,7 @@ window.onload = () => {
     const hint = {
         audio: false,
         video: {
-            width: { ideal: 4096 },
-            height: { ideal: 2160 },
+
             facingMode: 'environment',
         },
     };
@@ -22,10 +21,8 @@ window.onload = () => {
             video.srcObject = stream;
 
             video.addEventListener('loadeddata', () => {
-                interval = setInterval(() => {
-                    translate(video);
-                }, 100);
                 video.play();
+                translate(video);
             })
         })
 
@@ -36,12 +33,14 @@ window.onload = () => {
         var canvas = document.getElementById('myCanvas');
         var ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        var string = OCRAD(imageData);
+        var string = OCRAD(canvas);
         string = string.replace(/[^A-Za-z]/g, "")
 
         if (string == '') {
+            interval = setInterval(() => {
+                translate(video);
+            }, 10);
             return;
         }
 
@@ -56,12 +55,12 @@ window.onload = () => {
             setTimeout(() => {
                 interval = setInterval(() => {
                     translate(video);
-                }, 100);
+                }, 10);
             }, 2000);
         } else {
             interval = setInterval(() => {
                 translate(video);
-            }, 100);
+            }, 10);
         }
     }
 };
