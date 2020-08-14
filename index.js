@@ -23,7 +23,9 @@ window.onload = () => {
 
             video.addEventListener('loadeddata', () => {
                 video.play();
-                translate(video);
+                interval = setInterval(() => {
+                    translate(video);
+                }, 10);
             })
         })
 
@@ -35,7 +37,7 @@ window.onload = () => {
         var ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        var string = OCRAD(canvas);
+        var string = OCRAD(canvas, { filters: ['letters_only']});
         string = string.replace(/[^A-Za-z]/g, "")
 
         if (string == 'L' || string == 'l') {
@@ -44,29 +46,14 @@ window.onload = () => {
         }
 
         if (string == '') {
-            interval = setInterval(() => {
-                translate(video);
-            }, 10);
             return;
         }
-
-        clearInterval(interval);
 
         const translated = roman2arabic(string);
 
         if (Number.isInteger(translated)) {
             span.innerText = 'Roman: ' + string;
             spanArabic.innerText = 'Arabic: ' + translated;
-
-            setTimeout(() => {
-                interval = setInterval(() => {
-                    translate(video);
-                }, 10);
-            }, 2000);
-        } else {
-            interval = setInterval(() => {
-                translate(video);
-            }, 10);
         }
     }
 };
